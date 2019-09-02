@@ -1,0 +1,24 @@
+{# twigs subscriptionType #}
+
+{% if app.user.subscriptionsByType(subscriptionType)|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="nowrap">Teacher</th>
+        <th class="nowrap">Start Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in app.user.subscriptionsByType(subscriptionType) %}
+        <tr data-action="href" data-target="{{ path('student_course', {'course': course.id}) }}">
+          <td class="nowrap">{{ course.name }}</td>
+          <td class="nowrap">{{ course.owner.title }} {{ course.owner.surname }}</td>
+          <td class="nowrap">{{ course.startDate|date('d/m/Y') }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="none">You are not subscribed to any {{ subscriptionType }} courses.</p>
+{% endif %}

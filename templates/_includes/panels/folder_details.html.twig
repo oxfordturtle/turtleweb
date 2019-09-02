@@ -1,0 +1,30 @@
+{# twigs: folder #}
+
+{% embed '_includes/blocks/panel.html.twig' with {'type': 'details', 'heading': 'Details for ' ~ folder.longName} %}
+  {% block content %}
+    <table class="details">
+      <tbody>
+        <tr>
+          <td>Description</td>
+          <td>{% if folder.description %}{{ folder.description }}{% else %}<i>no description</i>{% endif %}</td>
+        </tr>
+        <tr>
+          <td>Files</td>
+          <td>{{ folder.files|length }}</td>
+        </tr>
+        <tr>
+          <td>Course</td>
+          <td>{{ folder.course.name }}</td>
+        </tr>
+        <tr>
+          <td>Course Teacher</td>
+          <td>{{ folder.course.owner.title }} {{ folder.course.owner.surname }}</td>
+        </tr>
+        <tr>
+          <td>Course Start date</td>
+          <td>{{ folder.course.startDate|date('d/m/Y') }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% endblock %}
+{% endembed %}

@@ -1,0 +1,35 @@
+{% extends 'system/_layout.html.twig' %}
+
+{% block content %}
+  <h1>Articles</h1>
+  <p>Peter Millican, developer of the Turtle System, has written three articles for <a href="http://www.computingatschool.org.uk/">Computing at School</a>’s magazine <a href="http://community.computingatschool.org.uk/resources/3127">SwitchedOn</a>.</p>
+  <ul class="articles-list">
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue15_Double.pdf') }}"><img src="{{ asset('images/switchedon_issue15.png') }}" alt="SwitchedOn Article 1"></a></li>
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue16_Double.pdf') }}"><img src="{{ asset('images/switchedon_issue16.png') }}" alt="SwitchedOn Article 2"></a></li>
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue21_Double.pdf') }}"><img src="{{ asset('images/switchedon_issue21.png') }}" alt="SwitchedOn Article 3"></a></li>
+  </ul>
+  <h2>The Turtle System:</h2>
+  <p class="article-subtitle">An Easy Way Into Text-Based Programming and Computer Science</p>
+  <p class="article-date">Issue 15, Autumn 2014</p>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue15_Single.pdf') }}">The Turtle System (PDF, single-page format)</a></li>
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue15_Double.pdf') }}">The Turtle System (PDF, double-page format)</a></li>
+  </ul>
+  <p>“The <i>Turtle System</i>, with teaching resources and tools for setting and marking coursework, is available free thanks to a new project at Oxford University co-funded by the Department for Education. Peter Millican, Professor of Philosophy at Hertford College, explains the principles behind the system he has developed.”</p>
+  <h2>Using the Turtle System:</h2>
+  <p class="article-subtitle">An Easy Way To Start Text-Based Programming</p>
+  <p class="article-date">Issue 16, Spring 2015</p>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue16_Single.pdf') }}">Using the Turtle System (PDF, single-page format)</a></li>
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue16_Double.pdf') }}">Using the Turtle System (PDF, double-page format)</a></li>
+  </ul>
+  <p>“The <i>Turtle System</i>, with teaching resources and coursework setting and marking tools, is available free thanks to a new project at Oxford University co-funded by the Department for Education. Peter Millican, Professor at Hertford College, Oxford, shows how to get started, both using the system and teaching with it.”</p>
+  <h2>Computing Concepts and Models</h2>
+  <p class="article-subtitle">to Enrich the Entire School Curriculum</p>
+  <p class="article-date">Issue 21, Autumn 2016</p>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue21_Single.pdf') }}">Computing Concepts and Models (PDF, single-page format)</a></li>
+    <li><a href="{{ asset('downloads/SwitchedOn_Issue21_Double.pdf') }}">Computing Concepts and Models (PDF, double-page format)</a></li>
+  </ul>
+  <p>“The <i>Turtle System</i> has recently been significantly developed at Oxford University thanks to a project co-funded by the Department for Education. Peter Millican, Professor at Hertford College and author of the system, has written a free book and suite of programs illustrating the value of CS concepts to many subjects.”</p>
+{% endblock %}

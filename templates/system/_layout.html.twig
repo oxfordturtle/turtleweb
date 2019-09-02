@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block themeColour %}{% endblock %}
+{% block title %}Turtle System{% endblock %}
+
+{% block menu %}
+  <li{% if route == 'system_home' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_home') }}">Home</a></li>
+  <li{% if route == 'system_documentation' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_documentation') }}">Documentation</a></li>
+  <li{% if route == 'system_articles' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_articles') }}">Articles</a></li>
+  <li{% if route == 'system_csac' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_csac') }}">CSAC</a></li>
+  <li{% if route == 'system_about' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_about') }}">About</a></li>
+  <li{% if route == 'system_contact' %} class="active"{% endif %}><a class="link-box" href="{{ path('system_contact') }}">Contact</a></li>
+{% endblock %}
+
+{% block main %}
+  <div class="container content">
+    {% block content %}{% endblock %}
+  </div>
+{% endblock %}

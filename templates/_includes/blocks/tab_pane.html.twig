@@ -1,0 +1,5 @@
+{# twigs: id, active #}
+
+<div class="tab-pane{% if active %} active{% endif %}" id="{{ id }}Tab">
+  {% block content %}{% endblock %}
+</div>

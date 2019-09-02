@@ -1,0 +1,174 @@
+.header {
+  line-height: 1;
+  ul {
+    list-style: none;
+    display: flex;
+    padding: 0.25rem;
+  }
+  li {
+    margin: 0.25rem;
+  }
+  .link-box {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.site-header {
+  background: $darkgray;
+  ul {
+    flex-direction: row;
+    justify-content: center;
+  }
+  li {
+    flex-basis: 4em;
+  }
+  .link-box {
+    font-size: 1.25em;
+    padding: 0.5em;
+    &.system {
+      background: $blue;
+      @include fa-icon-before($fa-download, 0);
+    }
+    &.online {
+      background: $green;
+      @include fa-icon-before($fa-cloud, 0);
+    }
+    &.forum {
+      background: $red;
+      @include fa-icon-before($fa-user, 0);
+    }
+  }
+  @media(min-width: $screen-md) {
+    ul {
+      padding: 0.5rem;
+    }
+    li {
+      flex-basis: 11em;
+      margin: 0.5rem;
+    }
+    .show-md {
+      margin-left: 0.4rem;
+    }
+  }
+}
+
+.section-header {
+  ul {
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  .link-box {
+    padding: 0.5em 1em;
+  }
+  &.system {
+    background: $system-color;
+    .link-box {
+      background: $system-color;
+    }
+    li.active > a,
+    a.active,
+    .forum-menu.active > a,
+    a:hover {
+      background: darken($system-color, 10%);
+    }
+  }
+  &.online {
+    background: $online-color;
+    .link-box {
+      background: $online-color;
+    }
+    li.active > a,
+    a.active,
+    .forum-menu.active > a,
+    a:hover {
+      background: darken($online-color, 10%);
+    }
+  }
+  &.forum, &.security, &.teacher, &.student {
+    background: $forum-color;
+    .link-box {
+      background: $forum-color;
+    }
+    li.active > a,
+    a.active,
+    .forum-menu.active > a,
+    a:hover {
+      background: darken($forum-color, 10%);
+    }
+  }
+  .local-header {
+    background: $forum-color;
+    .link-box {
+      background: $forum-color;
+    }
+    li.active > a,
+    a.active,
+    .forum-menu.active > a,
+    a:hover {
+      background: darken($forum-color, 10%);
+    }
+  }
+  @media(min-width: $screen-md) {
+    & > ul {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+}
+
+.forum-menu {
+  position: absolute;
+  top: 4rem;
+  right: 0.5rem;
+  & > a {
+    background: transparent;
+    &.dropdown {
+      @include fa-icon-after($fa-caret-down, 0.5em);
+    }
+  }
+  ul {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 100;
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    padding: 0;
+    border: 0.0625rem solid $gray;
+    box-shadow: 0 0.25rem 1rem 0 rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    li {
+      margin: 0;
+      &.divider {
+        border-bottom: 0.0625rem solid silver;
+        margin: 0.3rem 0.25rem;
+      }
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      color: $darkgray;
+      white-space: nowrap;
+      padding: 0.5em 1em;
+      transition: none;
+      &:hover {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+  &.active ul {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media(min-width: $screen-md) {
+    top: 5rem;
+  }
+}

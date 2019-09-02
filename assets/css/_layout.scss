@@ -1,0 +1,11 @@
+.main {
+  padding: 1rem 0;
+}
+
+.container {
+  padding: 0 1rem;
+  margin: 0 auto;
+  @media(min-width: $screen-md) {
+    max-width: $screen-md;
+  }
+}

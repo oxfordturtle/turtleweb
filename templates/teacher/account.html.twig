@@ -1,0 +1,66 @@
+{% extends 'teacher/_layout.html.twig' %}
+
+{# twigs: tab, editDetailsForm, changePasswordForm #}
+
+{% block content %}
+
+  {# title #}
+  <h3>My Account</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['details', 'My Details']] %}
+  {% set rightTabs = [['edit', 'Edit Details'], ['password', 'Change Password'], ['delete', 'Delete Account']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# details tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'details', 'active': tab == 'details'} %}
+      {% block content %}
+        {% include '_includes/panels/teacher_details.html.twig' with {'teacher': app.user} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# edit tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'edit', 'active': tab == 'edit'} %}
+      {% block content %}
+        {% embed '_includes/blocks/panel.html.twig' with {'type': 'edit', 'heading': 'Edit My Details'} %}
+          {% block content %}
+            {% include '_includes/forms/edit_teacher_details.html.twig' with {'form': editDetailsForm} %}
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
+
+    {# change password tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'password', 'active': tab == 'password'} %}
+      {% block content %}
+        {% embed '_includes/blocks/panel.html.twig' with {'type': 'edit', 'heading': 'Change My Password'} %}
+          {% block content %}
+            {% include '_includes/forms/change_password.html.twig' with {'form': changePasswordForm} %}
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
+
+    {# delete account tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'delete', 'active': tab == 'delete'} %}
+      {% block content %}
+        {% embed '_includes/blocks/panel.html.twig' with {'type': 'delete', 'heading': 'Delete My Account'} %}
+          {% block content %}
+            <p>Are you sure you want to delete your account? All files and data will be removed, and this action cannot be undone.</p>
+            <div class="form">
+              <form action="{{ path('teacher_delete_account') }}" method="post">
+                <div class="form-buttons">
+                  <button type="submit" class="red-button">Delete</a>
+                </div>
+              </form>
+            </div>
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
+
+  </div>
+
+{% endblock %}

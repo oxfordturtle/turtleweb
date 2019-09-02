@@ -1,0 +1,36 @@
+{# twigs: assignment #}
+
+{% if assignment.course.students|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Program</th>
+        <th>Submitted</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in assignment.course.students %}
+        <tr data-action="href" data-target="{{ path('teacher_student', {'studentId': student.id, 'tab': 'current'}) }}">
+          <td class="stretch">{{ student.surname }}, {{ student.surname }}</td>
+          {% set submission = assignment.studentSubmission(student) %}
+          {% if submission %}
+            <td class="nowrap">{{ submission.name }}</td>
+            <td class="nowrap">{{ submission.uploadedDate|date('d/m/Y') }}</td>
+            <td class="nowrap">
+              <a class="table-button blue-button" href="{{ path('forum_download_file', { 'file': submission.id }) }}">Download</a>
+              <a class="table-button green-button" href="{{ path('online_home') }}?f={{ path('forum_view_file', { 'file': submission.id, 'filename': submission.name ~ '.' ~ submission.ext }) }}">View in Browser</a>
+            </td>
+          {% else %}
+            <td>-</td>
+            <td></td>
+            <td></td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="none">There are no students signed up to this course.</p>
+{% endif %}

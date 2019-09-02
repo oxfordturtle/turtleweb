@@ -1,0 +1,108 @@
+{% extends 'teacher/_layout.html.twig' %}
+
+{# twigs: tab, course, createLessonForm, createAssignmentForm, editCourseForm #}
+
+{% block content %}
+
+  {# title #}
+  <h3>{{ course.name }}</h3>
+
+  {# tabs #}
+  {% if course.owner == app.user %}
+    {% set leftTabs = [['help', 'Help'], ['lesson', 'Lessons'], ['assignment', 'Assignments'], ['student', 'Students']] %}
+    {% set rightTabs = [['edit', 'Edit'], ['delete', 'Delete']] %}
+  {% else %}
+    {% set leftTabs = [['help', 'Help'], ['lesson', 'Lessons'], ['assignment', 'Assignments']] %}
+    {% set rightTabs = false %}
+  {% endif %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# help tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'help', 'active': tab == 'help'} %}
+      {% block content %}
+        {% include '_includes/text/folders.html.twig' %}
+        {% include '_includes/text/students.html.twig' %}
+      {% endblock %}
+    {% endembed %}
+
+    {# lessons tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'lesson', 'active': tab == 'lesson'} %}
+      {% block content %}
+        {% if course.owner == app.user %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Create a New Lesson for this Course', 'active': not createLessonForm.vars.valid} %}
+            {% block content %}
+              {% include '_includes/forms/create_folder.html.twig' with {'form': createLessonForm, 'folderType': 'lesson'} %}
+            {% endblock %}
+          {% endembed %}
+        {% endif %}
+        {% include '_includes/panels/course_lessons.html.twig' with {'course': course} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# assignments tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'assignment', 'active': tab == 'assignment'} %}
+      {% block content %}
+        {% if course.owner == app.user %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Create a New Assignment for this Course', 'active': not createAssignmentForm.vars.valid} %}
+            {% block content %}
+              {% include '_includes/forms/create_folder.html.twig' with {'form': createAssignmentForm, 'folderType': 'assignment'} %}
+            {% endblock %}
+          {% endembed %}
+        {% endif %}
+        {% include '_includes/panels/course_assignments.html.twig' with {'course': course} %}
+      {% endblock %}
+    {% endembed %}
+
+    {% if course.owner == app.user %}
+      {# students tab #}
+      {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'student', 'active': tab == 'student'} %}
+        {% block content %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'add', 'heading': 'Add Students to this Course', 'active': false} %}
+            {% block content %}
+              {% if course.status == 'open' %}
+                <p>Students can sign up to this course using the course passcode: <code>{{ course.passcode }}{{ course.id }}</code>. When all of your students have signed up, you can close the course in the <a href="{{ path('teacher_course', {'course': course.id, 'tab': 'edit'}) }}">Edit</a> tab.</p>
+              {% else %}
+                <p>This course is currently {{ course.status }}, which means that students can no longer sign up to it. To add more students, you must first change its status to 'open' in the <a href="{{ path('teacher_course', {'course': course.id, 'tab': 'edit'}) }}">Edit</a> tab.</p>
+              {% endif %}
+            {% endblock %}
+          {% endembed %}
+          {% include '_includes/panels/course_students.html.twig' with {'course': course} %}
+        {% endblock %}
+      {% endembed %}
+
+      {# edit tab #}
+      {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'edit', 'active': tab == 'edit'} %}
+        {% block content %}
+          {% embed '_includes/blocks/panel.html.twig' with {'type': 'edit', 'heading': 'Edit ' ~ course.name} %}
+            {% block content %}
+              {% include '_includes/forms/edit_course.html.twig' with {'form': editCourseForm} %}
+            {% endblock %}
+          {% endembed %}
+        {% endblock %}
+      {% endembed %}
+
+      {# delete tab #}
+      {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'delete', 'active': tab == 'delete'} %}
+        {% block content %}
+          {% embed '_includes/blocks/panel.html.twig' with {'type': 'delete', 'heading': 'Delete ' ~ course.name} %}
+            {% block content %}
+              <p>Are you sure you want to delete this course? This action cannot be undone.</p>
+              <p>Any files associated with this course that are not associated with any other courses will also be deleted. You may consider archiving the course instead, which will preserve these files, but hide the course from your list of current courses.</p>
+              <div class="form">
+                <form action="{{ path('teacher_delete_course', {'course': course.id}) }}" method="post">
+                  <div class="form-buttons">
+                    <button type="submit" class="red-button">Delete</button>
+                  </div>
+                </form>
+              </div>
+            {% endblock %}
+          {% endembed %}
+        {% endblock %}
+      {% endembed %}
+    {% endif %}
+
+  </div>
+
+{% endblock %}

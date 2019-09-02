@@ -1,0 +1,22 @@
+{%- block form_row -%}
+  {%- if errors|length > 0 -%}
+  <div class="form-input has-errors">
+    {{- form_label(form) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+  </div>
+  {%- else -%}
+  <div class="form-input">
+    {{- form_label(form) -}}
+    {{- form_widget(form) -}}
+  </div>
+  {%- endif -%}
+{%- endblock form_row -%}
+
+{%- block form_errors -%}
+  {%- if errors|length > 0 -%}
+    {%- for error in errors -%}
+      <div class="form-input-errors" title="{{ error.message }}"></div>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endblock form_errors -%}

@@ -1,0 +1,12 @@
+{% extends 'forum/_layout.html.twig' %}
+
+{% block content %}
+  <h1>The Turtle Forum</h1>
+  <p>Make teaching with the <i>Turtle System</i> easier by signing up for a free account on our <i>Turtle Forum</i>. Membership provides you with access to a growing collection of teaching resources, all made freely available under the creative commons licence, and designed specifically to meet the requirements for the new Computer Science component of the National Curriculum. Teachers are free to use these courses as they are, to adapt them, or to create new courses of their own, which their students are then able to join. The <i>Turtle Forum</i> provides a simple framework for sharing course materials and for uploading Turtle programs, which can then be downloaded by others or run directly in your web browser.</p>
+  <p class="registration-buttons">
+    <a class="button blue-button" href="{{ path('forum_teachers') }}">Sign Up as a Teacher</a>
+    <a class="button green-button" href="{{ path('forum_students') }}">Sign Up as a Student</a>
+  </p>
+  <p>Membership is and always will be completely free of charge. The service is intended primarily for teachers and students at schools in England and Wales, but anyone is welcome to join.</p>
+  <p>The <i>Turtle Forum</i> was designed in consultation with teachers, and has been redeveloped several times in response to user feedback. If there are any aspects that you feel could be improved, or if you have any suggestions for additional features, please <a href="{{ path('system_contact') }}">contact us</a>.</p>
+{% endblock %}

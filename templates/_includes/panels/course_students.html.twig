@@ -1,0 +1,24 @@
+{# twigs: course #}
+
+{% if course.students|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Submissions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in course.students %}
+        <tr data-action="href" data-target="{{ path('teacher_student', { 'studentId': student.id }) }}">
+          <td>{{ student.surname }}, {{ student.firstname }}</td>
+          <td>{{ student.username }}</td>
+          <td>{{ course.studentSubmissionsTotal(student) }} of {{ course.assignments|length }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="none">There are no students signed up to this course.</p>
+{% endif %}

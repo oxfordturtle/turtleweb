@@ -1,0 +1,80 @@
+{% extends 'teacher/_layout.html.twig' %}
+
+{# twigs: tab, student #}
+
+{% block content %}
+
+  {# title #}
+  <h3>{{ student.surname }}, {{ student.firstname }}</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['help', 'Help'], ['about', 'About'], ['current', 'Current Submissions']] %}
+  {% set rightTabs = [['archived', 'Archived Submissions']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# help tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'help', 'active': tab == 'help'} %}
+      {% block content %}
+        {% include '_includes/text/students.html.twig' %}
+        {% include '_includes/text/submissions.html.twig' %}
+      {% endblock %}
+    {% endembed %}
+
+    {# about tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'about', 'active': tab == 'about'} %}
+      {% block content %}
+        {% include '_includes/panels/student_details.html.twig' with {'student': student} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# current submissions tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'current', 'active': tab == 'current'} %}
+      {% block content %}
+        {% if student.currentSubscriptions(app.user)|length > 0 %}
+          <div class="inline-select">
+            <label for="currentCoursesSelect">Select a course:</label>
+            <select id="currentCoursesSelect" data-action="show-course" data-group="current">
+              {% for course in student.currentSubscriptions(app.user) %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% for course in student.currentSubscriptions(app.user) %}
+            <div class="courseShowHide{% if loop.first %} active{% endif %}" data-group="current" data-course="{{ course.id }}">
+              {% include '_includes/panels/course_student_submissions.html.twig' with {'course': course, 'student': student} %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="none">This student is not subscribed to any of your current courses.</p>
+        {% endif %}
+      {% endblock %}
+    {% endembed %}
+
+    {# archived submissions tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'archived', 'active': tab == 'archived'} %}
+      {% block content %}
+        {% if student.archivedSubscriptions(app.user)|length > 0 %}
+          <p>
+            <label for="archivedCoursesSelect">Select a course:</label>
+            <select id="archivedCoursesSelect" data-action="show-course" data-group="archived">
+              {% for course in student.archivedSubscriptions(app.user) %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+              {% endfor %}
+            </select>
+          </p>
+          {% for course in student.archivedSubscriptions(app.user) %}
+            <div class="courseShowHide{% if loop.first %} active{% endif %}" data-group="archived" data-course="{{ course.id }}">
+              {% include '_includes/panels/course_student_submissions.html.twig' with {'course': course, 'student': student} %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="none">This student is not subscribed to any of your archived courses.</p>
+        {% endif %}
+      {% endblock %}
+    {% endembed %}
+
+  </div>
+
+{% endblock %}

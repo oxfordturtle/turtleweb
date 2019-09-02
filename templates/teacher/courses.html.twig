@@ -1,0 +1,75 @@
+{% extends 'teacher/_layout.html.twig' %}
+
+{# twigs: tab, createCourseForm, cloneCurrentCourseForm, cloneArchivedCourseForm, public, clonePublicCourseForm #}
+
+{% block content %}
+
+  {# title #}
+  <h3>Courses</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['help', 'Help'], ['current', 'Current Courses'], ['public', 'Public Courses']] %}
+  {% set rightTabs = [['archived', 'Archived Courses']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# help tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'help', 'active': tab == 'help'} %}
+      {% block content %}
+        {% include '_includes/text/courses_create.html.twig' %}
+        {% include '_includes/text/courses_public.html.twig' %}
+        {% include '_includes/text/courses_archive.html.twig' %}
+      {% endblock %}
+    {% endembed %}
+
+    {# current courses tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'current', 'active': tab == 'current'} %}
+      {% block content %}
+        {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Create a New Course', 'active': not createCourseForm.vars.valid} %}
+          {% block content %}
+            {% include '_includes/forms/create_course.html.twig' with {'form': createCourseForm} %}
+          {% endblock %}
+        {% endembed %}
+        {% if app.user.currentCourses|length > 0 %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Clone an Existing Course', 'active': not cloneCurrentCourseForm.vars.valid} %}
+            {% block content %}
+              {% include '_includes/forms/clone_course.html.twig' with {'form': cloneCurrentCourseForm} %}
+            {% endblock %}
+          {% endembed %}
+        {% endif %}
+        {% include '_includes/panels/teacher_courses.html.twig' with {'teacher': app.user, 'courseType': 'current', 'public': false} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# public courses tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'public', 'active': tab == 'public'} %}
+      {% block content %}
+        {% if public and public.currentCourses|length > 0 %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Import a Public Course', 'active': not clonePublicCourseForm.vars.valid} %}
+            {% block content %}
+              {% include '_includes/forms/clone_course.html.twig' with {'form': clonePublicCourseForm} %}
+            {% endblock %}
+          {% endembed %}
+        {% endif %}
+        {% include '_includes/panels/teacher_courses.html.twig' with {'teacher': public, 'courseType': 'current', 'public': true} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# archived courses tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'archived', 'active': tab == 'archived'} %}
+      {% block content %}
+        {% if app.user.archivedCourses|length > 0 %}
+          {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Clone an Archived Course', 'active': not cloneArchivedCourseForm.vars.valid} %}
+            {% block content %}
+              {% include '_includes/forms/clone_course.html.twig' with {'form': cloneArchivedCourseForm} %}
+            {% endblock %}
+          {% endembed %}
+        {% endif %}
+        {% include '_includes/panels/teacher_courses.html.twig' with {'teacher': app.user, 'courseType': 'archived', 'public': false} %}
+      {% endblock %}
+    {% endembed %}
+
+  </div>
+
+{% endblock %}

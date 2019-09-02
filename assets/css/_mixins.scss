@@ -1,0 +1,25 @@
+@mixin button($colour: $darkgray) {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: $colour;
+  padding: .25em .75em;
+  &:hover,
+  &:focus,
+  &.active {
+    text-decoration: none;
+  }
+  &:hover {
+    box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+  }
+  &:focus {
+    box-shadow: 0 .2em .5em 0 rgba(0, 0, 0, 0.4);
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    background: lighten($colour, 10%);
+  }
+}

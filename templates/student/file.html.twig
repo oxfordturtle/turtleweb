@@ -1,0 +1,50 @@
+{% extends 'student/_layout.html.twig' %}
+
+{# twigs: tab, file #}
+
+{% block content %}
+
+  {# title #}
+  <h3>{{ file.name }}</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['about', 'About']] %}
+  {% if file.owner == app.user %}
+    {% set rightTabs = [['delete', 'Delete']] %}
+  {% else %}
+    {% set rightTabs = false %}
+  {% endif %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# about tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'about', 'active': tab == 'about'} %}
+      {% block content %}
+        {% include '_includes/panels/file_details.html.twig' with {'file': file} %}
+      {% endblock %}
+    {% endembed %}
+
+    {% if file.owner == app.user %}
+      {# delete tab #}
+      {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'delete', 'active': tab == 'delete'} %}
+        {% block content %}
+          {% embed '_includes/blocks/panel.html.twig' with {'type': 'delete', 'heading': 'Delete ' ~ file.fullname} %}
+            {% block content %}
+              <p>Are you sure you want to delete this file? This action cannot be undone.</p>
+              <div class="form">
+                <form action="{{ path('student_delete_file', {'file': file.id}) }}" method="post">
+                  <div class="form-buttons">
+                    <button type="submit" class="red-button">Delete</button>
+                  </div>
+                </form>
+              </div>
+            {% endblock %}
+          {% endembed %}
+        {% endblock %}
+      {% endembed %}
+    {% endif %}
+
+  </div>
+
+{% endblock %}

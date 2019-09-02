@@ -1,0 +1,39 @@
+{% extends 'system/_layout.html.twig' %}
+
+{% block modals %}{% endblock %}
+
+{% block content %}
+  <h1>Documentation</h1>
+  <p>The <i>Turtle System</i> is designed to be as easy to use and self-explanatory as possible, and consequently you should have little difficulty at least in getting started. However, there are several features &mdash; particularly those designed to help teachers &mdash; that will not be obvious unless you know to look for them. The following guides point these out to you, while going systematically through the various menus.</p>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/docs/Guide_for_Normal_Users.pdf') }}">The Turtle System - Guide for Normal Users</a></li>
+    <li><a href="{{ asset('downloads/docs/Guide_for_Power_Users.pdf') }}">The Turtle System - Guide for Power Users</a></li>
+    <li><a href="{{ asset('downloads/docs/Guide_for_Teachers.pdf') }}">The Turtle System - Guide for Teachers</a></li>
+  </ul>
+  <h2>The Turtle Languages</h2>
+  <p>The <i>Turtle System</i> supports four languages, <i>Turtle BASIC</i>. <i>Turtle Java</i>, <i>Turtle Pascal</i>, and <i>Turtle Python</i>. (Note however that <i>Turtle Java</i> is currently being redeveloped, and has temporarily been disabled in the latest version of the software.) These are cut-down versions of their respective parent languages, but are still highly expressive, with support for constants and variables, procedures and functions, loops and conditionals, keyboard and mouse input detection, and of course Turtle Graphics commands for drawing and animation. They are thus ideal for the classroom, since they provide a well-defined subset of these languages, which teachers can master relatively quickly, and students can use to learn essential programming techniques in a visual and intuitive way.</p>
+  <p>The core documentation for these languages is available within the <i>Turtle System</i> itself, under the &ldquo;QuickHelp 1&rdquo; and &ldquo;QuickHelp 2&rdquo; tabs. The &ldquo;QuickHelp 1&rdquo; tab contains information specific to each of the languages (and will change depending on which language is active), while the &ldquo;QuickHelp 2&rdquo; tab lists the native Turtle Graphics commands, colours, fonts, and cursors. All of this information is also duplicated in the <a href="{{ path('online_help') }}">Help Page</a> of the <a href="{{ path('online_home') }}">Online Turtle System</a>.</p>
+  <p>In addition, the links below provide some self-teach exercises for the various languages, which are designed to help complete beginners get started with the basics of text-based programming.</p>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/docs/Turtle_BASIC_Exercises_1-12.pdf') }}">Turtle BASIC - Self-Teach Exercises 1-12</a></li>
+    <li><a href="{{ asset('downloads/docs/Turtle_BASIC_Exercises_Getting_Started.pdf') }}">Turtle BASIC - Getting Started with the Exercises</a></li>
+  </ul>
+  <ul class="bullet list">
+    <li>Turtle Java - Self-Teach Exercises 1-12 <i>[coming soon]</i></li>
+    <li>Turtle Java - Getting Started with the Exercises <i>[coming soon]</i></li>
+  </ul>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/docs/Turtle_Pascal_Exercises_1-12.pdf') }}">Turtle Pascal - Self-Teach Exercises 1-12</a></li>
+    <li><a href="{{ asset('downloads/docs/Turtle_Pascal_Exercises_Getting_Started.pdf') }}">Turtle Pascal - Getting Started with the Exercises</a></li>
+  </ul>
+  <ul class="bullet list">
+    <li><a href="{{ asset('downloads/docs/Turtle_Python_Exercises_1-12.pdf') }}">Turtle Python - Self-Teach Exercises 1-12</a></li>
+    <li><a href="{{ asset('downloads/docs/Turtle_Python_Exercises_Getting_Started.pdf') }}">Turtle Python - Getting Started with the Exercises</a></li>
+  </ul>
+  <h2>Further Documentation</h2>
+  <p>The principles behind the <i>Turtle System</i> were explained in Peter Millican's 2004 research thesis, which discusses much of the relevant pedagogical literature, as well as providing technical details and results from teaching experience. An appendix includes some examples of student work.</p>
+  <ul class="bullet list">
+    <li><a href="http://www.millican.org/papers/2004MSc.pdf"><i>Turtle</i>: Innovative Software for the Learning of Computing Concepts</a> (PDF)</li>
+    <li><a href="http://www.millican.org/papers/2004MScImages.pdf">Examples of student work using <i>Turtle</i></a> (PDF)</li>
+  </ul>
+{% endblock %}

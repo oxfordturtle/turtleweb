@@ -1,0 +1,27 @@
+.alert {
+  display: none;
+  text-align: justify;
+  color: #fff;
+  background: $blue;
+  padding: 0.5em 1em;
+  border: 0.0625rem solid $lightgray;
+  margin-bottom: 1rem;
+  &.active {
+    display: block;
+  }
+  .close {
+    cursor: pointer;
+    float: right;
+    @include fa-icon($fa-close);
+  }
+}
+
+.alert-notice {
+  background: $green;
+  border-color: darken($green, 10%);
+}
+
+.alert-error {
+  background: $red;
+  border-color: darken($red, 10%);
+}

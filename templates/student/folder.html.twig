@@ -1,0 +1,62 @@
+{% extends 'student/_layout.html.twig' %}
+
+{# twigs: tab, folder, createSubmissionForm, addSubmissionForm #}
+
+{% block content %}
+
+  {# title #}
+  <h3><a href="{{ path('student_course', {'course': folder.course.id}) }}">{{ folder.course.name }}</a> &gt; {{ folder.longName }}</h3>
+
+  {# tabs #}
+  {% if folder.type == 'assignment' %}
+    {% set leftTabs = [['file', 'Files'], ['submission', 'Submission']] %}
+  {% else %}
+    {% set leftTabs = [['file', 'Files']] %}
+  {% endif %}
+  {% set rightTabs = [['about', 'About']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# files tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'file', 'active': tab == 'file'} %}
+      {% block content %}
+        {% include '_includes/panels/folder_files.html.twig' with {'folder': folder} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# submissions tab #}
+    {% if folder.type == 'assignment' %}
+      {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'submission', 'active': tab == 'submission'} %}
+        {% block content %}
+          {% set submission = folder.studentSubmission(app.user) %}
+          {% if submission %}
+            {% include '_includes/panels/file_details.html.twig' with {'file': submission} %}
+          {% else %}
+            {% embed '_includes/blocks/panel.html.twig' with {'type': 'create', 'heading': 'Submit a New Program'} %}
+              {% block content %}
+                {% include '_includes/forms/create_submission.html.twig' with {'form': createSubmissionForm} %}
+              {% endblock %}
+            {% endembed %}
+            {% if app.user.programs|length > 0 %}
+              {% embed '_includes/blocks/panel.html.twig' with {'type': 'create', 'heading': 'Submit an Existing Program'} %}
+                {% block content %}
+                  {% include '_includes/forms/add_submission.html.twig' with {'form': addSubmissionForm} %}
+                {% endblock %}
+              {% endembed %}
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+      {% endembed %}
+    {% endif %}
+
+    {# about tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'about', 'active': tab == 'about'} %}
+      {% block content %}
+        {% include '_includes/panels/folder_details.html.twig' with {'folder': folder} %}
+      {% endblock %}
+    {% endembed %}
+
+  </div>
+
+{% endblock %}

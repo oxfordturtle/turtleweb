@@ -1,0 +1,129 @@
+.content {
+  h1,
+  h2 {
+    line-height: 1;
+  }
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+  h1 {
+    font-size: 1.75em;
+    margin: 0.5rem 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.125rem solid $darkgray;
+    margin: 1.5rem 0 0.75rem;
+  }
+  h3,
+  h4 {
+    font-size: 1.2em;
+    border-bottom: 0.125rem solid $darkgray;
+    margin-bottom: 0.75rem;
+  }
+  hr {
+    height: 0;
+    border-bottom: 0.0625rem solid $darkgray;
+    margin: 1.25rem 0;
+  }
+  p,
+  blockquote {
+    margin-bottom: 0.75rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+  blockquote p {
+    margin-bottom: 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  blockquote {
+    font-style: italic;
+    .source {
+      text-align: right;
+      font-style: normal;
+      &:before {
+        content: "--- ";
+      }
+    }
+  }
+  ul,
+  ol {
+    list-style: none;
+  }
+  .list {
+    text-align: justify;
+    margin: 0 2rem 1rem;
+    li {
+      margin: 0.5rem 0;
+    }
+    .list {
+      margin: 0 1.25rem 0.75rem;
+    }
+    &.bullet {
+      list-style-type: disc;
+    }
+    &.circle {
+      list-style-type: circle;
+    }
+    &.square {
+      list-style-type: square;
+    }
+    &.decimal {
+      list-style-type: decimal;
+    }
+    &.lower-alpha {
+      list-style-type: lower-alpha;
+    }
+    &.lower-roman {
+      list-style-type: lower-roman;
+    }
+  }
+  img {
+    border: 0;
+  }
+  a:not(.button):not(.table-button):not(.up):not(.down) {
+    cursor: pointer;
+    color: $system-color;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+    &.link-box {
+      display: inline-block;
+      padding: 0.25em 0.5em;
+      text-align: center;
+      color: #fff;
+      background: $darkgray;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  sub,
+  sup {
+    font-size: 0.75em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sup {
+    top: -0.5em;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  small,
+  .small {
+    font-size: 0.875em;
+  }
+  code {
+    color: $red;
+    background: $lightgray;
+    padding: 0.0625rem 0.25rem;
+  }
+}

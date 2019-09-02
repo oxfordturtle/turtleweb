@@ -1,0 +1,33 @@
+{# twigs: folder #}
+
+{% if folder.teacherFiles|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th colspan="2">Files for {{ folder.longName }}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for file in folder.teacherFiles %}
+      <tr data-action="href" data-target="{{ path(app.user.type ~ '_file', {'file': file.id}) }}">
+        <td class="nowrap stretch">{{ file.fullname }}</td>
+        <td class="nowrap">
+          <a class="table-button blue-button" href="{{ path('forum_download_file', {'file': file.id}) }}">Download</a>
+          {% if file.isProgram %}
+            <a class="table-button green-button" href="{{ path('online_home') }}?f={{ path('forum_view_file', { 'file': submission.id, 'filename': submission.name ~ '.' ~ submission.ext }) }}">View in Browser</a>
+          {% elseif file.link %}
+            <a class="table-button green-button" href="{{ file.link }}" target="blank" onclick="event.stopPropagation()">View in Browser</a>
+          {% else %}
+            <a class="table-button green-button" href="{{ path('forum_view_file', { 'file': file.id }) }}">View in Browser</a>
+          {% endif %}
+          {% if folder.course.owner == app.user %}
+            <a class="table-button red-button" href="{{ path('teacher_remove_file_from_folder', { 'folder': folder.id, 'file': file.id }) }}">Remove</a>
+          {% endif %}
+          </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="none">There are no files for this {{ folder.type|capitalize }}.</p>
+{% endif %}

@@ -1,0 +1,26 @@
+{# twigs: course #}
+
+{% if course.filesArray|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Folder</th>
+        <th>Name</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for key, files in course.filesArray %}
+      {% for file in files %}
+        <tr data-action="href" data-target="{{ path('teacher_file', { 'file': file.id }) }}">
+          <td>{% if loop.first %}{{ key }}{% endif %}</td>
+          <td>{{ file.name }}.{{ file.ext }}</td>
+          <td>{{ file.size(true) }}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="none">There are no files for this course.</p>
+{% endif %}

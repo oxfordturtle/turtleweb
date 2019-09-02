@@ -1,0 +1,12 @@
+{% extends 'forum/_layout.html.twig' %}
+
+{# twigs: createStudentForm #}
+
+{% block modals %}
+  {% include '_includes/modals/privacy_policy.html.twig' %}
+{% endblock %}
+
+{% block content %}
+  <h1>Sign Up as a Student</h1>
+  {% include '_includes/forms/create_student.html.twig' with {'form': createStudentForm} %}
+{% endblock %}

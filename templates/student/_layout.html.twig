@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block themeColour %}#A86765{% endblock %}
+{% block title %}Turtle Forum{% endblock %}
+
+{% block menu %}
+  <li{% if route == 'student_home' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_home') }}">Home</a></li>
+  <li{% if route == 'student_folder' or route == 'student_course' or route == 'student_courses' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_courses') }}">Courses</a></li>
+  <li{% if route == 'student_file' or route == 'student_files' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_files') }}">Files</a></li>
+{% endblock %}
+
+{% block main %}
+  <div class="container content">
+    {% block content %}{% endblock %}
+  </div>
+{% endblock %}

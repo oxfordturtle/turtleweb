@@ -1,0 +1,59 @@
+@font-face {
+  font-family: FontAwesome;
+  src: url('/fonts/fontawesome-webfont.woff');
+}
+
+@mixin fa-icon($icon) {
+  &:before {
+    font-family: FontAwesome;
+    font-weight: normal;
+    content: $icon;
+  }
+}
+
+@mixin fa-icon-before($icon, $margin: 0.5em) {
+  &:before {
+    font-family: FontAwesome;
+    font-weight: normal;
+    content: $icon;
+    margin-right: $margin;
+  }
+}
+
+@mixin fa-icon-after($icon, $margin: 0.5em) {
+  &:after {
+    font-family: FontAwesome;
+    font-weight: normal;
+    content: $icon;
+    margin-left: $margin;
+    float: right;
+  }
+}
+
+.close-icon {
+  @include fa-icon($fa-close);
+}
+
+.user-icon {
+  @include fa-icon($fa-user);
+}
+
+.email-icon {
+  @include fa-icon($fa-envelope);
+}
+
+.password-icon {
+  @include fa-icon($fa-lock);
+}
+
+.apple-icon {
+  @include fa-icon($fa-apple);
+}
+
+.linux-icon {
+  @include fa-icon($fa-linux);
+}
+
+.windows-icon {
+  @include fa-icon($fa-windows);
+}

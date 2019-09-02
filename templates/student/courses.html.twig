@@ -1,0 +1,36 @@
+{% extends 'student/_layout.html.twig' %}
+
+{# twigs: tab, joinCourseForm #}
+
+{% block content %}
+
+  {# title #}
+  <h3>Courses</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['current', 'Current Courses']] %}
+  {% set rightTabs = [['archived', 'Archived Courses']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'rightTabs': rightTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# current courses tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'current', 'active': tab == 'current'} %}
+      {% block content %}
+        {% embed '_includes/blocks/collapsible_panel.html.twig' with {'type': 'create', 'heading': 'Join a New Course', 'active': not joinCourseForm.vars.valid} %}
+          {% block content %}
+            {% include '_includes/forms/join_course.html.twig' with {'form': joinCourseForm} %}
+          {% endblock %}
+        {% endembed %}
+        {% include '_includes/panels/student_courses.html.twig' with {'student': app.user, 'subscriptionType': 'current'} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# archived courses tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'archived', 'active': tab == 'archived'} %}
+      {% block content %}
+        {% include '_includes/panels/student_courses.html.twig' with {'student': app.user, 'subscriptionType': 'archived'} %}
+      {% endblock %}
+    {% endembed %}
+
+{% endblock %}

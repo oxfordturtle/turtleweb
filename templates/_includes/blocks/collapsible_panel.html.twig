@@ -1,0 +1,10 @@
+{# twigs: type, heading, active #}
+
+<div class="panel panel-collapsible panel-{{ type }}{% if active is defined and active %} active{% endif %}">
+  <div class="panel-heading" data-action="toggle-panel">
+    <h5>{{ heading }}</h5>
+  </div>
+  <div class="panel-body">
+    {% block content %}{% endblock %}
+  </div>
+</div>
