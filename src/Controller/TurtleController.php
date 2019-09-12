@@ -102,9 +102,9 @@ class TurtleController extends AbstractController
                 $count[$month] = [];
             }
             if (!array_key_exists('E'.$platform, $count[$month])) {
-                $count[$month]['D'.$platform] = 1;
+                $count[$month]['E'.$platform] = 1;
             } else {
-                $count[$month]['D'.$platform] += 1;
+                $count[$month]['E'.$platform] += 1;
             }
             $data = json_encode($count, JSON_PRETTY_PRINT);
             file_put_contents($turtleDir.'downloads.json', $data);
