@@ -83,7 +83,7 @@ class TurtleController extends AbstractController
     {
         $turtleDir = $this->getParameter('turtle_directory');
         $versions = json_decode(file_get_contents($turtleDir.'versions.json'), true);
-        $exts = ['browser' => 'js', 'macos' => 'app', 'win' => 'exe'];
+        $exts = ['browser' => 'js', 'macos' => 'app.zip', 'win' => 'exe'];
         $ext = $exts[$platform];
         $filename = 'TurtleSystemE_'.$versions['E'].'.'.$ext;
 
