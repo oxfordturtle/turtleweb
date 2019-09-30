@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DownloadsController extends AbstractController
 {
     /** --- DOWNLOAD ANY FILE IN THE DOWNLOADS DIRECTORY
-     * @Route("/{path}", name="file")
+     * @Route("/{path}", name="file", requirements={"path": ".+"})
      */
     public function other(Request $request, string $path): BinaryFileResponse
     {
