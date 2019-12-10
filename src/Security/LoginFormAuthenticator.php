@@ -2,13 +2,12 @@
 
 namespace App\Security;
 
-use App\Entity\User\User;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -18,89 +17,163 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * Login form authenticator.
+ */
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
-    private $entityManager;
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $passwordEncoder;
+  use TargetPathTrait;
 
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder
-    ) {
-        $this->entityManager = $entityManager;
-        $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordEncoder = $passwordEncoder;
+  /**
+   * EntityManagerInterface
+   */
+  private $entityManager;
+
+  /**
+   * Router
+   */
+  private $router;
+
+  /**
+   * CsrfTokenManagerInterface
+   */
+  private $csrfTokenManager;
+
+  /**
+   * UserPasswordEncoderInterface
+   */
+  private $passwordEncoder;
+
+  /**
+   * Constructor function.
+   *
+   * @param EntityManagerInterface $entityManager
+   * @param Router $router
+   * @param CsrfTokenManagerInterface $csrfTokenManager
+   * @param UserPasswordEncoderInterface $passwordEncoder
+   */
+  public function __construct(
+    EntityManagerInterface $entityManager,
+    RouterInterface $router,
+    CsrfTokenManagerInterface $csrfTokenManager,
+    UserPasswordEncoderInterface $passwordEncoder,
+    Security $security
+  ) {
+    $this->entityManager = $entityManager;
+    $this->router = $router;
+    $this->csrfTokenManager = $csrfTokenManager;
+    $this->passwordEncoder = $passwordEncoder;
+    $this->security = $security;
+  }
+
+  /**
+   * Check whether the request supports login.
+   *
+   * @param Request $request
+   * @return bool
+   */
+  public function supports(Request $request): bool
+  {
+    return ($request->attributes->get('_route') === 'security_login') && $request->isMethod('POST');
+  }
+
+  /**
+   * Get the credentials from the login form.
+   *
+   * @param Request $request
+   * @return array
+   */
+  public function getCredentials(Request $request)
+  {
+    // put the forms credentials in an array
+    $credentials = [
+      'username' => $request->request->get('_username'),
+      'password' => $request->request->get('_password'),
+      'csrf_token' => $request->request->get('_csrf_token'),
+    ];
+
+    // save the username to the session
+    $request->getSession()->set(Security::LAST_USERNAME, $credentials['username']);
+
+    // return the array
+    return $credentials;
+  }
+
+  /**
+   * Get the user from the credentials.
+   *
+   * @param array $credentials
+   * @param UserProviderInterface $userProvider
+   * @return UserInterface
+   */
+  public function getUser($credentials, UserProviderInterface $userProvider): User
+  {
+    // check the CSRF token
+    $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+    if (!$this->csrfTokenManager->isTokenValid($token)) {
+      throw new InvalidCsrfTokenException();
     }
 
-    public function supports(Request $request): bool
-    {
-        return ($request->attributes->get('_route') === 'security_login') && $request->isMethod('POST');
+    // look for the user
+    $user = $this->entityManager->getRepository(User::class)->findOneBy(
+      ['username' => $credentials['username']]
+    );
+
+    // throw an error if not found
+    if (!$user) {
+      throw new CustomUserMessageAuthenticationException('Username could not be found.');
     }
 
-    public function getCredentials(Request $request): array
-    {
-        $credentials = [
-            'username' => $request->request->get('_username'),
-            'password' => $request->request->get('_password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
-        ];
+    // otherwise return the user
+    return $user;
+  }
 
-        $request->getSession()->set(Security::LAST_USERNAME, $credentials['username']);
+  /**
+   * Check the password.
+   *
+   * @param array $credentials
+   * @param UserInterface $userInterface
+   * @return bool
+   */
+  public function checkCredentials($credentials, UserInterface $user): bool
+  {
+    return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+  }
 
-        return $credentials;
+  /**
+   * What to do if authentication is successful.
+   *
+   * @param Request $request
+   * @param TokenInterface $token
+   * @param mixed $providerKey
+   */
+  public function onAuthenticationSuccess(
+    Request $request,
+    TokenInterface $token,
+    $providerKey
+  ): RedirectResponse {
+    // update last login details for this user in the database
+    $this->security->getUser()->setLastLoginDate(new \DateTime('today'));
+    $this->entityManager->persist($user);
+
+    // maybe redirect to secure referring page
+    if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+      return new RedirectResponse($targetPath);
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
-    {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
-        }
+    // otherwise just redirect to user account page
+    return new RedirectResponse($this->router->generate('account_index'));
+  }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(
-            ['username' => $credentials['username']]
-        );
-
-        if (!$user) {
-            throw new CustomUserMessageAuthenticationException('Username could not be found.');
-        }
-
-        return $user;
-    }
-
-    public function checkCredentials($credentials, UserInterface $user): bool
-    {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
-    }
-
-    public function onAuthenticationSuccess(
-        Request $request,
-        TokenInterface $token,
-        $providerKey
-    ): JsonResponse {
-        return new JsonResponse(array(
-            'success' => true
-        ));
-    }
-
-    public function onAuthenticationFailure(
-        Request $request,
-        AuthenticationException $authenticationException
-    ): JsonResponse {
-        return new JsonResponse(array(
-            'success' => false,
-            'exception' => $authenticationException->getMessage()
-        ));
-    }
-
-    protected function getLoginUrl(): string
-    {
-        return $this->urlGenerator->generate('forum_home');
-    }
+  /**
+   * Get the login URL.
+   *
+   * @return string
+   */
+  protected function getLoginUrl(): string
+  {
+    return $this->urlGenerator->generate('login');
+  }
 }

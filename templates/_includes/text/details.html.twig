@@ -1,5 +1,0 @@
-{% embed '_includes/blocks/panel.html.twig' with {'type': 'help', 'heading': 'My Account'} %}
-  {% block content %}
-    <p>On this page you can view and edit your account details, change your password, or delete your account. Your password must be at least 6 characters long. Your username can be anything you like, but it must be unique on this forum (you will be told if you try to change your username to one that already exists in our database).{% if app.user.type == 'teacher'%} Choose your title according to how you want your students to refer to you. In their section of the site, you will appear as "Title Surname".{% endif %}</p>
-  {% endblock %}
-{% endembed %}

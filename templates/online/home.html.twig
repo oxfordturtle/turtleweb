@@ -1,5 +1,0 @@
-{% extends 'online/_layout.html.twig' %}
-
-{% block main %}
-  <div id="tse" data-page="system"{% if app.request.query.get('l') is defined %} data-language="{{ app.request.query.get('l') }}"{% endif %}{% if app.request.query.get('x') is defined %} data-example="{{ app.request.query.get('x') }}"{% endif %}{% if app.request.query.get('f') is defined %} data-file="{{ app.request.query.get('f') }}"{% endif %}></div>
-{% endblock %}

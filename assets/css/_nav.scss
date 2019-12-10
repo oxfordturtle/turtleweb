@@ -1,0 +1,90 @@
+// break points
+$break1: 26rem;
+$break2: 60rem;
+
+// the main nav element
+.nav {
+  background: $blue;
+  color: #fff;
+  .nav-container {
+    max-width: 64rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// the nav-toggle element (small screens only)
+.nav-toggle {
+  @media (min-width: $break2) {
+    display: none;
+  }
+}
+
+// the nav-site element (main site menu, toggles on and off in small screens)
+.nav-site {
+  @media (max-width: $break2) {
+    display: none;
+    &.active {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      top: 3em;
+      left: 0em;
+      width: 18em;
+      background: $blue;
+      box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, .05);
+    }
+  }
+  @media (min-width: $break2) {
+    display: flex;
+    flex: 1;
+    a:first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+// the nav-security element (right of navbar, hidden text in small screens)
+.nav-security {
+  display: flex;
+  a {
+    padding: .75em !important;
+    .text {
+      display: none;
+    }
+    @media (min-width: $break1) {
+      padding: .75em 1em .75em .5em !important;
+      .text {
+        display: block;
+      }
+    }
+  }
+}
+
+// link tags within the nav element
+.nav a {
+  display: flex;
+  align-items: center;
+  padding: .75em 1em .75em .5em;
+  white-space: nowrap;
+  &:hover, &.active {
+    background: darken($blue, 10%);
+  }
+  .icon {
+    display: flex;
+    min-width: 2em;
+    justify-content: center;
+    img {
+      width: 1.5em;
+      margin: 0 .25em;
+      @media (min-width: $break2) {
+        width: 2em;
+        margin: 0 .5em;
+      }
+    }
+  }
+  .text {
+    flex: 1;
+  }
+}

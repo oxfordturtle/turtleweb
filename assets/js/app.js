@@ -1,4 +1,3 @@
-import '../css/app.scss'
-import './_base'
-import './_forms'
-import './_security'
+require('../css/app.scss')
+require('../css/fontawesome.min.css')
+require('./_toggle-menu')

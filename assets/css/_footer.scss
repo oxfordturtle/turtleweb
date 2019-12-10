@@ -1,0 +1,30 @@
+// break points
+$break1: 44rem;
+
+// the main footer element
+.footer {
+  background: $lightgray;
+  padding: 4em 1em 1em;
+}
+
+// the list of logos
+.logos-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+  a {
+    display: block;
+    margin: .5em;
+  }
+  img {
+    height: 4em;
+    @media (min-width: $break1) {
+      height: 5em;
+    }
+  }
+}
+
+// the acknowledgements text
+.acknowledgements {
+}

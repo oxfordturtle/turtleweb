@@ -6,7 +6,7 @@ security:
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User\User
+                class: App\Entity\User
                 property: username
     firewalls:
         dev:
@@ -18,7 +18,7 @@ security:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
             logout:
-                path: security_logout
+                path: logout
 
     access_control:
         - { path: ^/teacher, roles: ROLE_TEACHER }
