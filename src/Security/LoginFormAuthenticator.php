@@ -76,7 +76,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
    */
   public function supports(Request $request): bool
   {
-    return ($request->attributes->get('_route') === 'security_login') && $request->isMethod('POST');
+    return ($request->attributes->get('_route') === 'login') && $request->isMethod('POST');
   }
 
   /**
@@ -155,7 +155,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     $providerKey
   ): RedirectResponse {
     // update last login details for this user in the database
-    $this->security->getUser()->setLastLoginDate(new \DateTime('today'));
+    $user = $this->security->getUser();
+    $user->setLastLoginDate(new \DateTime('now'));
     $this->entityManager->persist($user);
 
     // maybe redirect to secure referring page
@@ -163,7 +164,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
       return new RedirectResponse($targetPath);
     }
 
-    // otherwise just redirect to user account page
+    // otherwise just redirect to the user account page
     return new RedirectResponse($this->router->generate('account_index'));
   }
 
@@ -174,6 +175,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
    */
   protected function getLoginUrl(): string
   {
-    return $this->urlGenerator->generate('login');
+    return $this->router->generate('login');
   }
 }

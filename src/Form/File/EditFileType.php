@@ -8,26 +8,35 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+/**
+ * Form type for editing a file (can also be used to create a new file).
+ */
 class EditFileType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('name', TextType::class, array(
-                'label' => false,
-                'attr' => array('placeholder' => 'Name')
-            ))
-            ->add('link', TextType::class, array(
-                'required' => false,
-                'label' => false,
-                'attr' => array('placeholder' => 'OneDrive or Google Docs link (optional)')
-            ));
-    }
+  /**
+   * Build the form.
+   *
+   * @param FormBuilderInterface $builder
+   * @param array $options
+   */
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('name')
+      ->add('extention')
+      ->add('content');
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => File::class
-        ));
-    }
+  /**
+   * Configure the form options.
+   *
+   * @param OptionsResolver $resolver
+   */
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => File::class,
+      'validation_groups' => ['edit']
+    ]);
+  }
 }

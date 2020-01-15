@@ -4,22 +4,39 @@ namespace App\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Model for the email credentials form type.
+ */
 class EmailCredentials
 {
-    /** --- EMAIL
-     * @Assert\NotBlank(message="Email address cannot be blank")
-     * @Assert\Email(message="This is not a valid email address")
-     */
-    private $email;
+  /**
+   * The email address.
+   *
+   * @var string
+   * @Assert\NotBlank(message="Email address cannot be blank.")
+   * @Assert\Email(message="This is not a valid email address.")
+   */
+  private $email;
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
+  /**
+   * Get the email address.
+   *
+   * @return string|null
+   */
+  public function getEmail(): ?string
+  {
+    return $this->email;
+  }
 
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
+  /**
+   * Set the email address.
+   *
+   * @param string
+   * @return self
+   */
+  public function setEmail(string $email): self
+  {
+    $this->email = $email;
+    return $this;
+  }
 }

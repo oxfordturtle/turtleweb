@@ -1,0 +1,208 @@
+.nav {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3em;
+  display: flex;
+  justify-content: space-between;
+  background: $blue;
+  color: #fff;
+}
+
+.nav-item {
+  display: flex;
+  padding: .75em 1em;
+  white-space: nowrap;
+  &:hover, &.active, &.open {
+    background: darken($blue, 10%);
+  }
+  .icon {
+    width: 2em;
+    text-align: center;
+    &:first-child {
+      margin-left: -0.75em;
+    }
+    &:last-child {
+      margin-right: -0.75em;
+    }
+    img {
+      height: 22px;
+      margin-bottom: -5px;
+    }
+  }
+}
+
+.nav-menu {
+  position: relative;
+  .nav-sub-menu {
+    display: none;
+    &.open {
+      display: block;
+      position: absolute;
+      background: $blue;
+      box-shadow: $box-shadow;
+    }
+  }
+}
+.nav-right {
+  display: flex;
+  .nav-menu {
+    .nav-sub-menu.open {
+      right: 0;
+    }
+  }
+}
+
+@media (min-width: $break1) {
+  .nav {
+    box-shadow: $box-shadow;
+  }
+}
+
+@media (min-width: $break2) {
+  .nav-left {
+    &>.nav-menu {
+      &>.nav-item {
+        display: none;
+      }
+      &>.nav-sub-menu {
+        display: flex;
+        &.open {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+/*
+// the main nav element
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: $blue;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3em;
+  z-index: 10;
+  .nav-site {
+    display: none;
+    &.active {
+      display: block;
+      position: absolute;
+      top: 100%;
+      z-index: 10;
+      width: 22em;
+      background: $blue;
+      box-shadow: $box-shadow;
+    }
+    img {
+      width: 1.5em;
+      margin: 0 .25em;
+    }
+  }
+  .nav-security {
+    display: flex;
+    a {
+      padding: .75em !important;
+      .text {
+        display: none;
+      }
+      @media (min-width: $nav-break1) {
+        padding: .75em 1em .75em .5em !important;
+        .text {
+          display: block;
+        }
+      }
+    }
+  }
+  .nav-item {
+    &:hover, &.active {
+      background: darken($blue, 10%);
+    }
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: .75em 1em .75em .5em;
+    white-space: nowrap;
+    .icon {
+      display: flex;
+      min-width: 2em;
+      justify-content: center;
+    }
+    .text {
+      flex: 1;
+    }
+  }
+  .nav-sub-menu {
+    display: none;
+    &.open {
+      display: block;
+      background: $blue;
+    }
+    .nav-link {
+      padding-left: 3em;
+    }
+  }
+}
+
+@media (min-width: $break1) {
+  .nav {
+    box-shadow: $box-shadow;
+    .nav-toggle {}
+    .nav-site {}
+    .nav-security {}
+  }
+}
+
+@media (min-width: $break2) {
+  .nav {
+    box-shadow: $box-shadow;
+    .nav-toggle {
+      display: none;
+    }
+    .nav-site {
+      display: flex;
+      flex: 1;
+      a:first-child {
+        font-weight: bold;
+      }
+      img {
+        width: 2em;
+        margin: 0 .5em;
+      }
+    }
+    .nav-security {}
+  }
+}
+
+// the nav-site element (main site menu, toggles on and off in small screens)
+.nav-site {
+  @media (max-width: $nav-break2) {
+    display: none;
+    &.active {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      top: 3em;
+      left: 0em;
+      width: 18em;
+      background: $blue;
+      box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, .05);
+    }
+  }
+  @media (min-width: $nav-break2) {
+    display: flex;
+    flex: 1;
+    a:first-child {
+      font-weight: bold;
+    }
+  }
+}
+*/

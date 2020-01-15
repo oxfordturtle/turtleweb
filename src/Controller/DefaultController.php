@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -23,7 +25,7 @@ class DefaultController extends AbstractController
   public function index(): Response
   {
     // render and return the page
-    return $this->render('pages/index.html.twig');
+    return $this->render('default/index.html.twig');
   }
 
   /**
@@ -35,19 +37,31 @@ class DefaultController extends AbstractController
   public function online(): Response
   {
     // render and return the page
-    return $this->render('pages/online.html.twig');
+    return $this->render('default/online.html.twig');
   }
 
   /**
-   * Route for the documentation page.
+   * Route for the documentation area (redirects to the first documentation page).
    *
    * @Route("/documentation", name="documentation")
    * @return Response
    */
   public function documentation(): Response
   {
-    // render and return the page
-    return $this->render('pages/documentation.html.twig');
+    // redirect
+    return $this->redirectToRoute('documentation_guides');
+  }
+
+  /**
+   * Shortcut route for the CSAC page.
+   *
+   * @Route("/csac", name="csac")
+   * @return Response
+   */
+  public function csac(): Response
+  {
+    // redirect
+    return $this->redirectToRoute('documentation_csac');
   }
 
   /**
@@ -59,7 +73,7 @@ class DefaultController extends AbstractController
   public function about(): Response
   {
     // render and return the page
-    return $this->render('pages/about.html.twig');
+    return $this->render('default/about.html.twig');
   }
 
   /**
@@ -71,7 +85,7 @@ class DefaultController extends AbstractController
   public function contact(): Response
   {
     // render and return the page
-    return $this->render('pages/contact.html.twig');
+    return $this->render('default/contact.html.twig');
   }
 
   /**

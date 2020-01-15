@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+  <h1>The Turtle System</h1>
+  <p>The <i>Turtle System</i> is a free educational program developed at the University of Oxford, designed to support the new Computer Science component of the National Curriculum, and to bridge the &ldquo;Post-<i>Scratch</i> Gap&rdquo; between visual programming systems like <i>Scratch</i> and text-based programming. It supports several languages, all of which are compiled to portable code for a virtual <i>Turtle Machine</i>. The workings of the compilers and of the <i>Turtle Machine</i> are all open to inspection, providing many additional learning opportunities for advanced students.</p>
+{% endblock %}
+
+{% block main %}
+  <h2>Download</h2>
+  <p>We are actively developing two versions of the <i>Turtle System</i>: the <i>Delphi Turtle System</i> (or <i>Turtle System D</i>), written in Delphi Pascal, and the <i>Electron Turtle System</i> (or <i>Turtle System E</i>), written in JavaScript and Electron. The former is faster and has more features, but is currently only available for Windows. The latter is available on Windows and Mac, and can also be run in a web browser (click the <a href="{{ path('online') }}">Run in Browser</a> link above).</p>
+  <table class="downloads">
+    <thead>
+      <tr>
+        <th></th>
+        <th colspan="2"><i>Turtle System D</i></th>
+        <th><i>Turtle System E</i></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>v11</th>
+        <th>v13</th>
+        <th>v01</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th></th>
+        <td><a href="{{ path('turtle_tsd', { 'version': '11' }) }}" class="button"><span class="icon"><i class="fab fa-windows"></i></span> Windows</a></td>
+        <td><a href="{{ path('turtle_tsd', { 'version': '13' }) }}" class="button"><span class="icon"><i class="fab fa-windows"></i></span> Windows</a></td>
+        <td>
+          <a href="{{ path('turtle_tse', { 'platform': 'macos' }) }}" class="button"><span class="icon"><i class="fab fa-apple"></i></span> Apple</a>
+          <a href="{{ path('turtle_tse', { 'platform': 'win' }) }}" class="button"><span class="icon"><i class="fab fa-windows"></i></span> Windows</a>
+        </td>
+      </tr>
+      <tr>
+        <th>Turtle BASIC</th>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <th>Turtle Pascal</th>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <th>Turtle Python</th>
+        <td>Yes</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <th>Arrays Support</th>
+        <td>One-dimensional</td>
+        <td>Multi-dimensional</td>
+        <td>No support</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The <i>Turtle System</i> requires no installation. Once you have downloaded your preferred file from the links above, simply click or double-click the file to run it. The first time you run the program, your operating system may warn you that it is of unknown origin, and therefore potentially unsafe. On Windows, click ‘More Information’ and then ‘Run Anyway’. On MacOS, control-click the file, select ‘Open’; from the menu, and then click ‘Open’.</p>
+  <p>Version 12 of the <i>Turtle System D</i> has been superseded by version 13, which will soon integrate support for Turtle Python, making version 11 obsolete as well. As version 13 is still quite new, however, and not as thoroughly tested, version 12 will continue to be available for a short time from the following link: <a href="{{ path('turtle_tsd', { 'version': '12' }) }}"><i>Turtle System D, version 12</i></a>.
+  <h2>Further Information</h2>
+  <p>Please see the <a href="{{ path('documentation') }}">Documentation</a> section for detailed information about the <i>Turtle System</i> and how to use it. For a discussion of the principles behind the System, see the <a href="{{ path('about') }}">About</a> page, or Peter Millican’s articles in <a href="http://www.computingatschool.org.uk/">Computing at School</a>’s <a href="http://community.computingatschool.org.uk/resources/3127">SwitchedOn</a> magazine.</p>
+  <p>As part of a joint project between Oxford University and Queen Mary, University of London, and with funding from the Department for Education, a book entitled ‘Computer Science Across the Curriculum’ has been written, to illustrate the value of Computer Science in various different aspects of the national curriculum. For details, and links to the example programs, see the <a href="{{ path('documentation_csac') }}">Computer Science Across the Curriculum</a> page. These examples are also available directly from the ‘File’ tab of the <a href="{{ path('online') }}">Online Turtle System</a>.</p>
+  <p>For any additional information, or to make suggestions for future developments, please <a href="{{ path('contact') }}">contact us</a>.</p>
+{% endblock %}

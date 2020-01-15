@@ -5,116 +5,97 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table
+ * A record of some user activity.
+ *
  * @ORM\Entity
  */
 class ActivityLog
 {
+  /**
+   * The log's unique identifier in the database.
+   *
+   * @var int
+   * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
 
-    /** --- constructor
-     */
-    public function __construct(User $user, $action, $entity1 = null, $entity2 = null)
-    {
-        $this->setUser($user);
-        $this->setAction($action);
-        if (isset($entity1)) {
-            $this->setEntity1($entity1);
-        }
-        if (isset($entity2)) {
-            $this->setEntity2($entity2);
-        }
-        $this->setDate();
-    }
+  /**
+   * The user whose activity is being logged.
+   *
+   * @var User
+   * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="logs")
+   */
+  private $user;
 
-    /** --- ID
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+  /**
+   * The label of the activity being logged.
+   *
+   * @var string
+   * @ORM\Column(type="string", length=255)
+   */
+  private $action;
 
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * The date and time of the activity.
+   *
+   * @var \DateTimeInterface
+   * @ORM\Column(type="datetime")
+   */
+  private $date;
 
-    /** --- USER
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="logs")
-     */
-    private $user;
+  /**
+   * Constructor function.
+   *
+   * @param User $user
+   * @param string $action
+   */
+  public function __construct(User $user, string $action)
+  {
+    $this->id = null;
+    $this->user = $user;
+    $this->action = $action;
+    $this->date = new \DateTime('now');
+  }
 
-    public function getUser()
-    {
-        return $this->user;
-    }
+  /**
+   * Get the log's unique identifier (null when the object is first created).
+   *
+   * @return int|null
+   */
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function setUser(User $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
+  /**
+   * Get the user.
+   *
+   * @return User
+   */
+  public function getUser(): User
+  {
+    return $this->user;
+  }
 
-    /** --- ACTION
-     * @ORM\Column(type="string", length=255)
-     */
-    private $action;
+  /**
+   * Get the label of the activity.
+   *
+   * @return string
+   */
+  public function getAction(): string
+  {
+    return $this->action;
+  }
 
-    public function getAction()
-    {
-        return $this->action;
-    }
-
-    public function setAction($action)
-    {
-        $this->action = $action;
-        return $this;
-    }
-
-    /** --- ENTITY1 (id of some related entity, depending on action)
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $entity1;
-
-    public function getEntity1()
-    {
-        return $this->entity1;
-    }
-
-    public function setEntity1($entity1)
-    {
-        $this->entity1 = $entity1;
-        return $this;
-    }
-
-    /** --- ENTITY2 (id of some other related entity, depending on action)
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $entity2;
-
-    public function getEntity2()
-    {
-        return $this->entity2;
-    }
-
-    public function setEntity2($entity2)
-    {
-        $this->entity2 = $entity2;
-        return $this;
-    }
-
-    /** --- DATE
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    public function setDate()
-    {
-        $this->date = new \DateTime('now');
-        return $this;
-    }
+  /**
+   * Get the date and time of the activity.
+   *
+   * @return \DateTimeInterface
+   */
+  public function getDate(): \DateTimeInterface
+  {
+    return $this->date;
+  }
 }

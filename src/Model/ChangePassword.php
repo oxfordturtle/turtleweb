@@ -5,37 +5,68 @@ namespace App\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
+/**
+ * Model for the change password form type.
+ */
 class ChangePassword
 {
-    /** --- OLD PASSWORD
-     * @SecurityAssert\UserPassword(message="Wrong value for your current password")
-    */
-    private $oldPassword;
+  /**
+   * The old (current) password.
+   *
+   * @var string
+   * @SecurityAssert\UserPassword(message="Wrong value for your current password.")
+   */
+  private $oldPassword;
 
-    public function getOldPassword()
-    {
-        return $this->oldPassword;
-    }
+  /**
+   * The new password.
+   *
+   * @var string
+   * @Assert\NotBlank(message="Password cannot be blank.")
+   */
+  private $newPassword;
 
-    public function setOldPassword($password)
-    {
-        $this->oldPassword = $password;
-        return $this;
-    }
+  /**
+   * Get the old password.
+   *
+   * @return string|null
+   */
+  public function getOldPassword(): ?string
+  {
+    return $this->oldPassword;
+  }
 
-    /** --- NEW PASSWORD
-     * @Assert\NotBlank(message="Password cannot be blank")
-     */
-    private $newPassword;
+  /**
+   * Set the old password.
+   *
+   * @param string
+   * @return self
+   */
+  public function setOldPassword(string $password): self
+  {
+    $this->oldPassword = $password;
+    return $this;
+  }
 
-    public function getNewPassword()
-    {
-        return $this->newPassword;
-    }
+  /**
+   * Get the new password.
+   *
+   * @return string|null
+   */
+  public function getNewPassword(): ?string
+  {
+    return $this->newPassword;
+  }
 
-    public function setNewPassword($password)
-    {
-        $this->newPassword = $password;
-        return $this;
-    }
+  /**
+   * Set the new password.
+   *
+   * @param string
+   * @return self
+   */
+  public function setNewPassword(string $password): self
+  {
+    $this->newPassword = $password;
+    return $this;
+  }
 }
