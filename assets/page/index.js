@@ -1,0 +1,1 @@
+import './footer/index.js'
