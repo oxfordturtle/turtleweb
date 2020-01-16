@@ -1,0 +1,8 @@
+.tse-output {
+  flex: 1;
+  width: $canvas-width + $canvas-coords-width;
+  overflow: auto;
+  padding: $padding;
+  font-family: $monospace;
+  border: 1px solid $gray;
+}

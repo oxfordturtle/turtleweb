@@ -1,0 +1,36 @@
+.tse-tabs {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  .tse-tab-panes {
+    .tse-tab-pane {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      background: #fff;
+      padding: $padding;
+      &.tse-active {
+        display: flex;
+      }
+      div {
+        flex-shrink: 0;
+      }
+    }
+  }
+  .tse-tab-list {
+    display: flex;
+    overflow-x: auto;
+    .tse-tab {
+      cursor: pointer;
+      color: #fff;
+      padding: .5em .75em;
+      flex-shrink: 0;
+      &:hover {
+        background: $gray;
+      }
+      &.tse-active {
+        background: #fff;
+        color: $black;
+      }
+    }
+  }
+}

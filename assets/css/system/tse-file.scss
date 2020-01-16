@@ -1,0 +1,34 @@
+.tse-file-box {
+  background: $lightgray;
+  border: 1px solid $gray;
+  display: flex;
+  flex-direction: column;
+  padding: $padding;
+  &:not(:last-child) {
+    margin-bottom: $padding;
+  }
+  &:last-child {
+    flex: 1;
+  }
+  button {
+    flex: 1;
+    &:not(:last-child) {
+      margin-right: $padding;
+    }
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    padding: $padding;
+    margin-bottom: $padding;
+  }
+  select {
+    width: 100%;
+    &:not(:last-child) {
+      margin-bottom: $padding;
+    }
+    &[multiple] {
+      flex: 1;
+    }
+  }
+}

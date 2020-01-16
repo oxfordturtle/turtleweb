@@ -1,5 +1,5 @@
-require('../css/site.scss')
-require('../css/fontawesome.min.css')
-require('./site/toggle-menu.js')
-require('./site/toggle-sub-menu.js')
-require('./site/files.js')
+import '../css/site.scss'
+import '../css/fontawesome.min.css'
+import './site/toggle-menu.js'
+import './site/toggle-sub-menu.js'
+import './site/files.js'

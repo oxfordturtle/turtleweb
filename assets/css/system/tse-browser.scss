@@ -1,0 +1,52 @@
+.tse-browser {
+  max-width: $padding + $machine-component-width + $padding;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto $system-height;
+  .tse-browser-tab-list {
+    display: flex;
+    .tse-browser-tab {
+      flex: 1;
+      display: block;
+      padding: .75em 1em .5em;
+      height: auto;
+      cursor: pointer;
+      color: #fff;
+      background: $gray-transparent;
+      &:hover, &.active {
+        background: $darkgray-transparent;
+      }
+    }
+  }
+  .tse-browser-tab-panes {
+    background: $darkgray-transparent;
+    padding: $padding;
+    .tse-browser-tab-pane {
+      display: none;
+      grid-template-rows: auto 1fr;
+      grid-gap: $padding;
+      height: 100%;
+      &.active {
+        display: grid;
+      }
+    }
+  }
+}
+
+@media (min-width: $system-width) {
+  .tse-browser {
+    max-width: $system-width;
+    grid-template-rows: $system-height;
+    .tse-browser-tab-list {
+      display: none;
+    }
+    .tse-browser-tab-panes {
+      display: grid;
+      grid-template-columns: auto $machine-component-width;
+      grid-gap: $padding;
+      .tse-browser-tab-pane {
+        display: grid !important;
+      }
+    }
+  }
+}

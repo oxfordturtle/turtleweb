@@ -1,0 +1,53 @@
+.tse-controls {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: $padding;
+  .tse-filename-input {
+    flex: 1;
+    margin-left: $padding;
+    text-align: center;
+  }
+  .tse-machine-buttons {
+    display: flex;
+    button {
+      padding: $padding / 2;
+    }
+    .tse-run-halt-button {
+      width: 3.5em;
+      font-weight: bold;
+      margin-right: $padding;
+    }
+    .tse-play-pause-button {
+      width: 2em;
+    }
+  }
+  .tse-turtle-properties {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    font-size: .75em;
+    dd, dt {
+      padding: ($padding * 2.5) $padding;
+      text-align: center;
+    }
+    dt {
+      display: none;
+      @media (min-width: $machine-component-width) {
+        display: block;
+      }
+    }
+    dd {
+      margin-left: $padding;
+    }
+    .tse-turt,
+    .tse-turt-wide {
+      background: $lightgray;
+      overflow: hidden;
+      width: 2.5em;
+    }
+    .tse-turt-wide {
+      width: 4.5em;
+    }
+  }
+}

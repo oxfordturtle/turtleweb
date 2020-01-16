@@ -1,0 +1,7 @@
+.tse-buttons {
+  display: flex;
+  justify-content: flex-end;
+  &:not(:last-child) {
+    margin-bottom: $padding;
+  }
+}
