@@ -2,7 +2,7 @@
 {% set section = route|split('_')|first %}
 {% apply spaceless %}
 <!DOCTYPE html>
-<html lang="en" class="{% if section == 'pwa' %}pwa{% else %}site{% endif %}">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +11,14 @@
     <meta name="keywords" content="turtle graphics, programming, coding, education, learn to code">
     <meta name="description" content="The Turtle System is a free educational program developed at the University of Oxford, designed to support the new Computer Science component of the National Curriculum.">
     <meta name="theme-color" content="#159d6b">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/images/turtle-152x152.png">
+    <link rel="icon" type="image/x-icon" href="/icons/turtle.ico">
+    <link rel="apple-touch-icon" href="/icons/turtle-152x152.png">
     <link rel="manifest" href="/manifest.json">
-    <title>{% block title %}Turtle System{% endblock %}</title>
-    <script defer src="/build/app.js"></script>
+    <title>{% block title %}Oxford Turtle System{% endblock %}</title>
+    <script src="/app.js"></script>
     <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-54853004-1', 'auto');ga('send', 'pageview');</script>
   </head>
-  <body>
+  <body class="{% if section == 'pwa' %}pwa{% else %}site{% endif %}">
     {% block body %}
       <nav class="nav">
         <div class="nav-left">
@@ -32,8 +32,8 @@
         </div>
         <div class="nav-right">{% include '_includes/security-menu.html.twig' %}</div>
       </nav>
-      <div class="container {{ section }}">
-        <header class="header">
+      <div class="container">
+        <header class="header {{ section }}">
           {% block header %}{% endblock %}
         </header>
         {% for message in app.flashes('success') %}
@@ -42,12 +42,12 @@
         {% for message in app.flashes('error') %}
           <div class="notice error">{{ message }}</div>
         {% endfor %}
-        <main class="main">
+        <main class="main {{ section }}">
           {% block main %}{% endblock %}
         </main>
         <footer class="footer">
           <div class="logos-list">
-            <a href="http://www.cs.ox.ac.uk/" target="blank" title="Department of Computer Science, University of Oxford"><img class="compsci') }}" alt="Department of Computer Science Logo, University of Oxford"></a>
+            <a href="http://www.cs.ox.ac.uk/" target="blank" title="Department of Computer Science, University of Oxford"><img class="compsci" alt="Department of Computer Science Logo, University of Oxford"></a>
             <a href="http://www.philosophy.ox.ac.uk/" target="blank" title="Philosophy Faculty, University of Oxford"><img class="philfac" alt="Philoophy Faculty Logo, University of Oxford"></a>
             <a href="https://www.gov.uk/government/organisations/department-for-education" target="blank" title="The Department for Education"><img class="govcrest" alt="The Department for Education Crest"></a>
             <a href="http://www.hertford.ox.ac.uk/" target="blank" title="Hertford College"><img class="hertcrest" alt="Hertford College Crest"></a>

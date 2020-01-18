@@ -1,0 +1,46 @@
+@import "../../common/constants.scss";
+
+.footer {
+  padding: 3em;
+  background: $lightgray;
+  .logos-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1em;
+    a {
+      display: block;
+      margin: .5em;
+    }
+    img {
+      height: 4em;
+    }
+  }
+  p {
+    margin: 0;
+    text-align: justify;
+    font-size: .9375em;
+  }
+  a {
+    color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: $break1) {
+  .footer {
+    .logos-list {
+      img {
+        height: 5em;
+      }
+    }
+  }
+}
+
+@media (min-width: $break2) {
+  .footer {
+    padding: 3em 10em;
+  }
+}

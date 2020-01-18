@@ -1,0 +1,6 @@
+import './style.scss'
+import './header/index.js'
+import './notice/index.js'
+import './main/index.js'
+import './form/index.js'
+import './footer/index.js'

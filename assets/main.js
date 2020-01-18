@@ -1,5 +1,0 @@
-import './site/index.js'
-import './pwa/index.js'
-import './nav/index.js'
-import './page/index.js'
-import './turtle/index.js'

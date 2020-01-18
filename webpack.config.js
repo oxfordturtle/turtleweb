@@ -2,10 +2,10 @@ const path = require('path')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
-  entry: './assets/main.js',
+  entry: './app/index.js',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'public/build')
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new WorkboxPlugin.GenerateSW({
