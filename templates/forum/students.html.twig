@@ -1,6 +1,6 @@
 {% extends 'forum/_layout.html.twig' %}
 
-{# twigs: createStudentForm #}
+{# twigs: tab, createStudentForm, createStudentParentForm #}
 
 {% block modals %}
   {% include '_includes/modals/privacy_policy.html.twig' %}
@@ -8,5 +8,28 @@
 
 {% block content %}
   <h1>Sign Up as a Student</h1>
-  {% include '_includes/forms/create_student.html.twig' with {'form': createStudentForm} %}
+
+  {# tabs #}
+  {% set leftTabs = [['student', 'Register Myself'], ['parent', 'Register My Child']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# student tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'student', 'active': tab == 'student'} %}
+      {% block content %}
+        <p>You must be at least 13 years old to register yourself for an account on this site. If you are under 13, ask your parent or guardian to register on your behalf, using the <a href="{{ path('forum_students', { tab: 'parent' }) }}">Register My Child</a> form.</p>
+        {% include '_includes/forms/create_student.html.twig' with {'form': createStudentForm} %}
+      {% endblock %}
+    {% endembed %}
+
+    {# parent tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'parent', 'active': tab == 'parent'} %}
+      {% block content %}
+        {% include '_includes/forms/create_student_parent.html.twig' with {'form': createStudentParentForm} %}
+      {% endblock %}
+    {% endembed %}
+
+  </div>
+
 {% endblock %}

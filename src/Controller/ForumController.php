@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\File\File;
 use App\Entity\User\CreateTeacherType;
 use App\Entity\User\CreateStudentType;
+use App\Entity\User\CreateStudentParentType;
 use App\Entity\User\User;
 use App\Entity\User\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,24 +105,24 @@ class ForumController extends AbstractController
     }
 
     /** --- STUDENT REGISTRATION PAGE
-     * @Route("/students", name="students")
+     * @Route("/students/{tab}", name="students")
      */
-    public function students(Request $request, UserManager $userManager)
+    public function students(Request $request, UserManager $userManager, $tab = 'student')
     {
         if ($this->getUser()) {
             return $this->redirectToRoute($this->getUser()->getType().'_home');
         }
 
-        $student = new User('student');
-        $options = array('urn_path' => $this->generateUrl('forum_school_from_urn'));
-        $createStudentForm = $this->createForm(CreateStudentType::class, $student, $options);
+        // self-registration form
+        $student1 = new User('student');
+        $createStudentForm = $this->createForm(CreateStudentType::class, $student1);
         $createStudentForm->handleRequest($request);
-
         if ($createStudentForm->isSubmitted()) {
+            $tab = 'student';
             if ($createStudentForm->isValid()) {
                 try {
-                    $userManager->create($student);
-                    $token = new UsernamePasswordToken($student, null, 'main', $student->getRoles());
+                    $userManager->create($student1);
+                    $token = new UsernamePasswordToken($student1, null, 'main', $student1->getRoles());
                     $this->get('security.token_storage')->setToken($token);
                     return $this->redirectToRoute('student_home');
                 } catch (\Exception $exception) {
@@ -132,8 +133,31 @@ class ForumController extends AbstractController
             }
         }
 
+        // parent registration form
+        $student2 = new User('student');
+        $createStudentParentForm = $this->createForm(CreateStudentParentType::class, $student2);
+        $createStudentParentForm->handleRequest($request);
+        if ($createStudentParentForm->isSubmitted()) {
+            $tab = 'parent';
+            if ($createStudentParentForm->isValid()) {
+                try {
+                    $userManager->create($student2);
+                    $token = new UsernamePasswordToken($student2, null, 'main', $student2->getRoles());
+                    $this->get('security.token_storage')->setToken($token);
+                    return $this->redirectToRoute('student_home');
+                } catch (\Exception $exception) {
+                    $this->addFlash('error', $exception->getMessage());
+                }
+            } else {
+                $this->addFlash('error', 'Your form has errors. Hover over the exclamation marks for details.');
+            }
+        }
+
+        // render and return the response
         $twigs = array();
+        $twigs['tab'] = $tab;
         $twigs['createStudentForm'] = $createStudentForm->createView();
+        $twigs['createStudentParentForm'] = $createStudentParentForm->createView();
         return $this->render('forum/students.html.twig', $twigs);
     }
 

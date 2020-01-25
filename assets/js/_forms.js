@@ -56,3 +56,18 @@ const addAction = function (node) {
 
 registrationSubmitMatchValue()
 dom.each(dom.all('[data-action]'), addAction)
+
+dom.each(dom.all('[data-disabled]'), (button) => {
+  const checkboxes = Array.from(dom.all(`[data-enable="${button.dataset.disabled}"]`))
+  const update = () => {
+    if (checkboxes.every(x => x.checked)) {
+      button.removeAttribute('disabled')
+    } else {
+      button.setAttribute('disabled', 'disabled')
+    }
+  }
+  update()
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', update)
+  })
+})

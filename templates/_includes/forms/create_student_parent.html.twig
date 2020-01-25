@@ -5,6 +5,13 @@
     <fieldset>
       <div class="form-legend">My Name</div>
       <div class="form-inputs">
+        {{ form_row(form.parentFirstname) }}
+        {{ form_row(form.parentSurname) }}
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="form-legend">Name of Child</div>
+      <div class="form-inputs">
         {{ form_row(form.firstname) }}
         {{ form_row(form.surname) }}
       </div>
@@ -27,15 +34,15 @@
       <div class="form-legend">Agree to Terms</div>
       <div class="form-inputs">
         <div class="form-input">
-          <label class="checkbox-label"><input type="checkbox" required="required" data-enable="registerSelf"> I agree to the <a data-action="modal" data-target="privacyPolicyModal">Privacy Policy</a></label>
+          <label class="checkbox-label"><input type="checkbox" required="required" data-enable="registerChild"> I agree to the <a data-action="modal" data-target="privacyPolicyModal">Privacy Policy</a></label>
         </div>
         <div class="form-input">
-          <label class="checkbox-label"><input type="checkbox" required="required" data-enable="registerSelf"> I am at least 13 years old</label>
+          <label class="checkbox-label"><input type="checkbox" required="required" data-enable="registerChild"> I am this child's legal parent/guardian</label>
         </div>
       </div>
     </fieldset>
     <div class="form-buttons">
-      <button type="submit" data-disabled="registerSelf" class="green-button">Register</button>
+      <button type="submit" data-disabled="registerChild" class="green-button">Register</button>
     </div>
   {{ form_end(form) }}
 </div>

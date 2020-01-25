@@ -271,6 +271,38 @@ class User implements UserInterface
         return $this->type;
     }
 
+    /** --- PARENT'S FIRSTNAME (if under thirteen)
+     * @ORM\Column(name="parent_firstname", type="string", length=255, nullable=true)
+     */
+    private $parentFirstname;
+
+    public function setParentFirstname($parentFirstname)
+    {
+        $this->parentFirstname = $parentFirstname;
+        return $this;
+    }
+
+    public function getParentFirstname()
+    {
+        return $this->parentFirstname;
+    }
+
+    /** --- PARENT'S SURNAME (if under thirteen)
+     * @ORM\Column(name="parent_surname", type="string", length=255, nullable=true)
+     */
+    private $parentSurname;
+
+    public function setParentSurname($parentSurname)
+    {
+        $this->parentSurname = $parentSurname;
+        return $this;
+    }
+
+    public function getParentSurname()
+    {
+        return $this->parentSurname;
+    }
+
     /** --- SCHOOL_URN
      * @ORM\Column(name="school_urn", type="string", length=255, nullable=true)
      */
