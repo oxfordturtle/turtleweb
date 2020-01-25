@@ -1,0 +1,21 @@
+{# twigs: form #}
+
+<div class="form">
+  {{ form_start(form) }}
+    <fieldset>
+      <div class="form-legend">Subject</div>
+      <div class="form-inputs">
+        {{ form_row(form.subject) }}
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="form-legend">Comments</div>
+      <div class="form-inputs">
+        {{ form_row(form.comments) }}
+      </div>
+    </fieldset>
+    <div class="form-buttons">
+      <button type="submit" class="green-button">Submit</button>
+    </div>
+  {{ form_end(form) }}
+</div>

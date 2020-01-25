@@ -7,6 +7,7 @@
   <li{% if route == 'student_home' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_home') }}">Home</a></li>
   <li{% if route == 'student_folder' or route == 'student_course' or route == 'student_courses' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_courses') }}">Courses</a></li>
   <li{% if route == 'student_file' or route == 'student_files' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_files') }}">Files</a></li>
+  <li{% if route == 'student_feedback' %} class="active"{% endif %}><a class="link-box" href="{{ path('student_feedback') }}">Feedback</a></li>
 {% endblock %}
 
 {% block main %}

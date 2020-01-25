@@ -46,34 +46,6 @@ class CreateStudentType extends AbstractType
             ->add('surname', TextType::class, array(
                 'label' => false,
                 'attr' => array('placeholder' => 'Surname')
-            ))
-            ->add('schoolUrn', TextType::class, array(
-                'label' => false,
-                'attr' => array(
-                    'placeholder' => 'URN',
-                    'data-action' => 'school-from-urn',
-                    'data-urn-path' => $options['urn_path'],
-                    'data-name' => $this->getBlockPrefix() . '_schoolName',
-                    'data-postcode' => $this->getBlockPrefix() . '_schoolPostcode'
-                )
-            ))
-            ->add('schoolName', TextType::class, array(
-                'label' => false,
-                'attr' => array('placeholder' => 'Name')
-            ))
-            ->add('schoolPostcode', TextType::class, array(
-                'label' => false,
-                'attr' => array('placeholder' => 'Postcode')
-            ))
-            ->add('dateOfBirth', DateType::class, array(
-                'label' => false,
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'attr' => array('placeholder' => 'Date of Birth (dd/mm/yyyy)')
-            ))
-            ->add('homePostcode', TextType::class, array(
-                'label' => false,
-                'attr' => array('placeholder' => 'Home Postcode')
             ));
     }
 

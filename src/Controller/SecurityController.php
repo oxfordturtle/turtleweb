@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User\User;
 use App\Entity\User\UserManager;
+use App\Entity\User\CreateUserType;
 use App\Model\EmailCredentials\EmailCredentials;
 use App\Model\EmailCredentials\EmailCredentialsType;
 use App\Model\ResetPasword\ResetPasword;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -29,6 +31,35 @@ class SecurityController extends AbstractController
         // $twigs['error'] = $authenticationUtils->getLastAuthenticationError();
 
         return $this->render('_includes/forms/login.html.twig', $twigs);
+    }
+
+    /** --- REGISTRATION FORM (fragment, post with AJAX)
+     * @Route("/register", name="register")
+     */
+    public function register(Request $request, UserManager $userManager)
+    {
+        $user = new User('student');
+        $createUserForm = $this->createForm(CreateUserType::class, $user);
+
+        $createUserForm->handleRequest($request);
+        if ($createUserForm->isSubmitted()) {
+            if ($createUserForm->isValid()) {
+                try {
+                    $userManager->create($user);
+                    $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+                    $this->get('security.token_storage')->setToken($token);
+                    return $this->redirectToRoute('student_home');
+                } catch (\Exception $exception) {
+                    $this->addFlash('error', $exception->getMessage());
+                }
+            } else {
+                $this->addFlash('error', 'Your form has errors. Hover over the exclamation marks for details.');
+            }
+        }
+
+        $twigs = array();
+        $twigs['createUserForm'] = $createUserForm->createView();
+        return $this->render('_includes/forms/register.html.twig', $twigs);
     }
 
     /** --- LOGOUT

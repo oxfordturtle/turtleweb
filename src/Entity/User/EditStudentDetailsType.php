@@ -30,16 +30,6 @@ class EditStudentDetailsType extends AbstractType
                 'label' => false,
                 'attr' => array('placeholder' => 'Surname')
             ))
-            ->add('schoolUrn', TextType::class, array(
-                'label' => false,
-                'attr' => array(
-                    'placeholder' => 'URN',
-                    'data-action' => 'school-from-urn',
-                    'data-urn-path' => $options['urn_path'],
-                    'data-name' => $this->getBlockPrefix() . '_schoolName',
-                    'data-postcode' => $this->getBlockPrefix() . '_schoolPostcode'
-                )
-            ))
             ->add('schoolName', TextType::class, array(
                 'label' => false,
                 'attr' => array('placeholder' => 'Name')

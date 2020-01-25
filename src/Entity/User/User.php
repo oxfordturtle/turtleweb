@@ -272,11 +272,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_URN
-     * @ORM\Column(name="school_urn", type="string", length=255)
-     * @Assert\NotBlank(
-     *     message="School URN cannot be blank - if you do not know your school URN (or you do not have one) please enter '000000'",
-     *     groups={"student", "teacher", "registration"}
-     * )
+     * @ORM\Column(name="school_urn", type="string", length=255, nullable=true)
      */
     private $schoolUrn;
 
@@ -333,10 +329,6 @@ class User implements UserInterface
 
     /** --- DATE_OF_BIRTH (students only)
      * @ORM\Column(name="date_of_birth", type="date", nullable=true)
-     * @Assert\NotBlank(
-     *     message="Date of birth cannot be blank",
-     *     groups={"student"}
-     * )
      */
     private $dateOfBirth;
 
@@ -353,10 +345,6 @@ class User implements UserInterface
 
     /** --- HOME_POSTCODE (students only)
      * @ORM\Column(name="home_postcode", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(
-     *     message="Home postcode cannot be blank",
-     *     groups={"student"}
-     * )
      */
     private $homePostcode;
 
@@ -561,6 +549,17 @@ class User implements UserInterface
             case 'archived':
                 return $this->getArchivedSubscriptions($teacher);
         }
+    }
+
+    /** --- FEEDBACK
+     * @ORM\OneToMany(targetEntity="App\Entity\Feedback\Feedback", mappedBy="user")
+     * @ORM\OrderBy({"date"="ASC"})
+     */
+    private $feedback;
+
+    public function getFeedback()
+    {
+        return $this->feedback;
     }
 
     /* --- DISK USAGE (derivative property)

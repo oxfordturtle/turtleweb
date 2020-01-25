@@ -1,0 +1,32 @@
+{% extends 'student/_layout.html.twig' %}
+
+{# twigs: tab #}
+
+{% block content %}
+
+  {# title #}
+  <h3>Feedback</h3>
+
+  {# tabs #}
+  {% set leftTabs = [['help', 'Help'], ['suggestions', 'Suggestions']] %}
+  {% include '_includes/blocks/tabs.html.twig' with {'leftTabs': leftTabs, 'activeTab': tab} %}
+
+  <div class="forum-tab-panes">
+
+    {# help request tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'help', 'active': tab == 'help'} %}
+      {% block content %}
+        <p>If you are having any difficulty learning to program with the Turtle System, please let us know using the form below. We will reply to you in an email as soon as possible.</p>
+        {% include '_includes/forms/create_feedback.html.twig' with { 'form': helpFeedbackForm } %}
+      {% endblock %}
+    {% endembed %}
+
+    {# suggestions tab #}
+    {% embed '_includes/blocks/tab_pane.html.twig' with {'id': 'suggestions', 'active': tab == 'suggestions'} %}
+      {% block content %}
+        <p>Please help us improve the Turtle System by sending us any ideas you have for changes or new features.</p>
+        {% include '_includes/forms/create_feedback.html.twig' with { 'form': suggestionFeedbackForm } %}
+      {% endblock %}
+    {% endembed %}
+
+{% endblock %}
