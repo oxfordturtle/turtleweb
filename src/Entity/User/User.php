@@ -51,7 +51,7 @@ class User implements UserInterface
     }
 
     /** --- USERNAME
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=20, unique=true)
      * @Assert\NotBlank(
      *     message="Username cannot be blank",
      *     groups={"student", "teacher", "registration"}
@@ -76,7 +76,7 @@ class User implements UserInterface
     }
 
     /** --- EMAIL ADDRESS
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=30, unique=true)
      * @Assert\NotBlank(
      *     message="Email address cannot be blank",
      *     groups={"student", "teacher", "registration"}
@@ -100,7 +100,7 @@ class User implements UserInterface
     }
 
     /** --- PASSWORD
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=100)
      * @Assert\NotBlank(
      *     message="Password cannot be blank",
      *     groups={"registration"}
@@ -136,7 +136,7 @@ class User implements UserInterface
     }
 
     /** --- RESET_TOKEN (randomly generated on request to reset password)
-     * @ORM\Column(name="reset_token", type="string", length=255, nullable=true)
+     * @ORM\Column(name="reset_token", type="string", length=20, nullable=true)
      */
     private $resetToken;
 
@@ -191,7 +191,7 @@ class User implements UserInterface
     }
 
     /** --- TITLE (teachers only)
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=20, nullable=true)
      * @Assert\NotBlank(
      *     message="Title cannot be blank - this is how you will be referred to in your students' pages",
      *     groups={"teacher"}
@@ -211,7 +211,7 @@ class User implements UserInterface
     }
 
     /** --- FIRSTNAME
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=30)
      * @Assert\NotBlank(
      *     message="First name cannot be blank",
      *     groups={"student", "teacher", "registration"}
@@ -231,7 +231,7 @@ class User implements UserInterface
     }
 
     /** --- SURNAME
-     * @ORM\Column(name="surname", type="string", length=255)
+     * @ORM\Column(name="surname", type="string", length=30)
      * @Assert\NotBlank(
      *     message="Surname cannot be blank",
      *     groups={"student", "teacher", "registration"}
@@ -251,7 +251,7 @@ class User implements UserInterface
     }
 
     /** --- TYPE (teacher or student)
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
 
@@ -272,7 +272,7 @@ class User implements UserInterface
     }
 
     /** --- PARENT'S FIRSTNAME (if under thirteen)
-     * @ORM\Column(name="parent_firstname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="parent_firstname", type="string", length=30, nullable=true)
      */
     private $parentFirstname;
 
@@ -288,7 +288,7 @@ class User implements UserInterface
     }
 
     /** --- PARENT'S SURNAME (if under thirteen)
-     * @ORM\Column(name="parent_surname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="parent_surname", type="string", length=30, nullable=true)
      */
     private $parentSurname;
 
@@ -304,7 +304,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_URN
-     * @ORM\Column(name="school_urn", type="string", length=255, nullable=true)
+     * @ORM\Column(name="school_urn", type="string", length=20, nullable=true)
      */
     private $schoolUrn;
 
@@ -320,7 +320,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_NAME (teachers only)
-     * @ORM\Column(name="school_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="school_name", type="string", length=30, nullable=true)
      * @Assert\NotBlank(
      *     message="School name cannot be blank",
      *     groups={"teacher"}
@@ -340,7 +340,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_POSTCODE (teachers only)
-     * @ORM\Column(name="school_postcode", type="string", length=255, nullable=true)
+     * @ORM\Column(name="school_postcode", type="string", length=20, nullable=true)
      * @Assert\NotBlank(
      *     message="School postcode cannot be blank",
      *     groups={"teacher"}
@@ -376,7 +376,7 @@ class User implements UserInterface
     }
 
     /** --- HOME_POSTCODE (students only)
-     * @ORM\Column(name="home_postcode", type="string", length=255, nullable=true)
+     * @ORM\Column(name="home_postcode", type="string", length=20, nullable=true)
      */
     private $homePostcode;
 
