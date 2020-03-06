@@ -320,7 +320,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_NAME (teachers only)
-     * @ORM\Column(name="school_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="school_name", type="string", length=60, nullable=true)
      * @Assert\NotBlank(
      *     message="School name cannot be blank",
      *     groups={"teacher"}
