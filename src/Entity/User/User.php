@@ -304,7 +304,7 @@ class User implements UserInterface
     }
 
     /** --- SCHOOL_URN
-     * @ORM\Column(name="school_urn", type="string", length=20, nullable=true)
+     * @ORM\Column(name="school_urn", type="string", length=30, nullable=true)
      */
     private $schoolUrn;
 
