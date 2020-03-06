@@ -51,7 +51,7 @@ class User implements UserInterface
     }
 
     /** --- USERNAME
-     * @ORM\Column(name="username", type="string", length=20, unique=true)
+     * @ORM\Column(name="username", type="string", length=50, unique=true)
      * @Assert\NotBlank(
      *     message="Username cannot be blank",
      *     groups={"student", "teacher", "registration"}
