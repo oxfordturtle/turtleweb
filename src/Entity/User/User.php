@@ -191,7 +191,7 @@ class User implements UserInterface
     }
 
     /** --- TITLE (teachers only)
-     * @ORM\Column(name="title", type="string", length=20, nullable=true)
+     * @ORM\Column(name="title", type="string", length=40, nullable=true)
      * @Assert\NotBlank(
      *     message="Title cannot be blank - this is how you will be referred to in your students' pages",
      *     groups={"teacher"}
