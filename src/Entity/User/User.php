@@ -76,7 +76,7 @@ class User implements UserInterface
     }
 
     /** --- EMAIL ADDRESS
-     * @ORM\Column(name="email", type="string", length=30, unique=true)
+     * @ORM\Column(name="email", type="string", length=100, unique=true)
      * @Assert\NotBlank(
      *     message="Email address cannot be blank",
      *     groups={"student", "teacher", "registration"}
